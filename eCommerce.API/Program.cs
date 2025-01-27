@@ -15,6 +15,18 @@ namespace eCommerce.API
             builder.Services.AddCore();
             builder.Services.AddAutoMapper(typeof(AuthenticationConfig).Assembly);
             builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
             // Add controllers to the DI container
             builder.Services.AddControllers();
 
@@ -27,7 +39,10 @@ namespace eCommerce.API
 
             //Routing
             app.UseRouting();
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
+            app.UseCors("AllowAll");
             // Add authentication and authorization
             app.UseAuthentication();
             app.UseAuthorization();

@@ -19,7 +19,7 @@ namespace eCommerce.Core.Validators
 
             RuleFor(x=>x.PersonName)
                 .NotEmpty().WithMessage("Person Name is required")
-                .Length(3, 50).WithMessage("Person Name must be between 3 and 50 characters");
+                .Length(1, 50).WithMessage("Person Name must be between 3 and 50 characters");
 
             RuleFor(x=>x.Gender)
                 .NotEmpty().WithMessage("Gender is required")

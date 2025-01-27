@@ -15,8 +15,12 @@ namespace eCommerce.Infrastructure.Data
         {
             get
             {
-                var connStr = _configuration.GetConnectionString("DefaultConnection");
-                return new NpgsqlConnection(connStr);
+                string connectionString = _configuration
+                    .GetConnectionString("DefaultConnection")
+                    .Replace("${POSTGRES_HOST}", Environment.GetEnvironmentVariable("POSTGRES_HOST"))
+                    .Replace("${POSTGRES_PASSWORD}", Environment.GetEnvironmentVariable("POSTGRES_PASSWORD"));
+
+                return new NpgsqlConnection(connectionString);
             }
         }
     }
